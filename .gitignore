@@ -1,0 +1,6 @@
+# node stuff
+*.log
+node_modules/
+
+# earl-grey tmp files
+egcache/

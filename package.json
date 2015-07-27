@@ -1,11 +1,20 @@
 {
   "name": "byke",
+  "description": "BYKE - Full-Stack Webapps Using Bookshelf, cYcle.js, Koa, and Earl-grey.",
   "version": "0.0.0",
-  "description": "BYKE - Full-Stack Webapps Using Bookshelf, cYcle.js, Koa, and Earl-grey",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jake Russo",
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": ">= 0.12.0",
+    "iojs": ">= 1.0.0"
+  },
+  "dependencies": {
+    "earlgrey": "0.0.10",
+    "koa": "^0.21.0",
+    "koa-logger": "^1.3.0",
+    "koa-router": "^5.1.2"
+  }
 }
