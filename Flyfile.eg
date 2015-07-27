@@ -1,20 +1,19 @@
-paths = {
-   server = { "server/**/*.eg" }
-   client = {
+paths = {} with
+   server = {} with
+      all  = "server/**/*.eg"
+      main = "server/main.eg"
+   client = {} with
       eg   = { "client/js/**/*.eg" }
       css  = { "client/css/**/*.css" }
       html = { "client/*.html" }
-   }
-   dist = {
+   dist   = {} with
       css  = "dist/css"
       js   = "dist/js"
-      all = "dist"
-   }
-}
+      all  = "dist"
 
 require: earlify
 
-provide: default, clear, client, css, html
+provide: default, clear, client, css, html, server, watch
 
 gen default = ->
    yield this.tasks.clear()
@@ -23,7 +22,7 @@ gen default = ->
    yield this.tasks.html()
 
 gen clear = ->
-   yield this.clear("dist")
+   yield this.clear(.dist)
 
 gen client = ->
    yield this.clear with paths.dist.js
@@ -44,12 +43,12 @@ gen css = ->
 gen html = ->
    yield chain this:
       @source: paths.client.html
-      @target: paths.dist.html
+      @target: paths.dist.all
 
 gen server = ->
    yield this.nodemon with {
       verbose = true
-      script  = "server/main.eg"
+      script  = paths.server.main
       ext     = ".eg"
       exec    = "earl run"
       events = { restart = "google-chrome http://localhost:3000/" }
@@ -58,4 +57,4 @@ gen server = ->
 gen watch = ->
    yield this.watch with
       { paths.server.eg }
-      { "server" }
+      { .server }
