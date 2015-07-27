@@ -8,12 +8,13 @@ require:
    ;;koa-compress as compress
 
 print 'Dirname: {__dirname}'
-indexPath = '{__dirname}/../dist/public/index.html'
+indexPath = '{__dirname}/../dist/index.html'
 async index = -> this.body = await read-file(indexPath, {encoding = .utf8})
 
 chain app:
    @use: logger
-   @use: serve(__dirname + "./../dist/public")
+   @use: serve(__dirname + "./../dist/js")
+   @use: serve(__dirname + "./../dist/css")
    @use: route.get("/") with index
    @listen: 3000
 
