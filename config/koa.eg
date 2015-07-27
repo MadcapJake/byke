@@ -1,0 +1,20 @@
+require:
+   fs -> promisify! read-file
+   koa() as app
+   koa-route as route
+   koa-logger() as logger
+   koa-static as serve
+   ;;koa-better-ratelimit as limit
+   ;;koa-compress as compress
+
+print 'Dirname: {__dirname}'
+indexPath = '{__dirname}/../dist/public/index.html'
+async index = -> this.body = await read-file(indexPath, {encoding = .utf8})
+
+chain app:
+   @use: logger
+   @use: serve(__dirname + "./../dist/public")
+   @use: route.get("/") with index
+   @listen: 3000
+
+print "BYKE is running on port 3000"

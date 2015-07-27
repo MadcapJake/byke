@@ -1,0 +1,41 @@
+settings = {
+   server = {
+      config = "config/Serverfile"
+      debug = true
+      database = "dev.db"
+      admins = {
+         "jrusso"
+         "sbaure"
+         "jengen"
+      }
+   }
+   client = {
+      config = "config/Clientfile"
+      debug = true
+      files = {
+         html = "dist/html"
+         js = "dist/js"
+         css = "dist/css"
+      }
+   }
+}
+
+settings-with = {} with
+   server = {} with
+      config = "config/Serverfile"
+      debug = true
+      database = "dev.db"
+      admins = {} with
+         "jrusso"
+         "sbaure"
+         "jengen"
+   client = {} with
+      config = "config/Clientfile"
+      debug = true
+      files = {} with
+         html = "dist/html"
+         js = "dist/js"
+         css = "dist/css"
+
+print settings
+print settings-with

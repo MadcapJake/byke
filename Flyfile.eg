@@ -1,0 +1,61 @@
+paths = {
+   server = { "server/**/*.eg" }
+   client = {
+      eg   = { "client/js/**/*.eg" }
+      css  = { "client/css/**/*.css" }
+      html = { "client/*.html" }
+   }
+   dist = {
+      css  = "dist/css"
+      js   = "dist/js"
+      all = "dist"
+   }
+}
+
+require: earlify
+
+provide: default, clear, client, css, html
+
+gen default = ->
+   yield this.tasks.clear()
+   yield this.tasks.client()
+   yield this.tasks.css()
+   yield this.tasks.html()
+
+gen clear = ->
+   yield this.clear("dist")
+
+gen client = ->
+   yield this.clear with paths.dist.js
+   yield chain this:
+      @source: paths.client.eg
+      @browse: { transform = { earlify } }
+      @minify: { ext = .js }
+      @concat: "index.js"
+      @target: paths.dist.js
+
+gen css = ->
+   yield this.clear with paths.dist.css
+   yield chain this:
+      @source: paths.client.css
+      @stylus:
+      @target: paths.dist.css
+
+gen html = ->
+   yield chain this:
+      @source: paths.client.html
+      @target: paths.dist.html
+
+gen server = ->
+   yield this.nodemon with {
+      verbose = true
+      script  = "server/main.eg"
+      ext     = ".eg"
+      exec    = "earl run"
+      events = { restart = "google-chrome http://localhost:3000/" }
+   }
+
+gen watch = ->
+   yield this.watch with
+      { paths.server.eg }
+      { "server" }
