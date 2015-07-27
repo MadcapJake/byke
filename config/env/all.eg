@@ -1,0 +1,7 @@
+module.exports = {} with
+   app = {
+      title = "BYKE Stack"
+      description = "Full-Stack Webapps with Bookshelf, cYcle.js, Koa, and Earl Grey"
+      keywords = "bookshelf, koajs, cyclejs, nodejs"
+   }
+   port = process.env.PORT or 3000

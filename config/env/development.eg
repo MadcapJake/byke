@@ -1,0 +1,11 @@
+module.exports = {} with
+   db = {
+      uri = "postgres://localhost:5432"
+      options = {
+         user = ""
+         pass = ""
+      }
+   }
+   app = {
+      title = "BYKE - Development Environment"
+   }

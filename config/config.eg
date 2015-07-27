@@ -1,0 +1,11 @@
+env = './env/{process.env.NODE_ENV}'
+require:
+   fs
+   lodash as ld
+   ^env as current
+   ./env/all
+   ./env/local
+
+collect-configs = -> ld.merge(ld.assign(all, current), local)
+
+module.exports = collect-configs()

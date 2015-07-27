@@ -4,3 +4,6 @@ node_modules/
 
 # earl-grey tmp files
 egcache/
+
+# local configs
+config/env/local.eg

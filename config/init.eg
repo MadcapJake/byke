@@ -1,0 +1,12 @@
+require: glob, clor
+
+no-node-env = "NODE_ENV is not defined! Using default development environment"
+no-env-conf = 'No configuration file found for {process.env.NODE_ENV} environment using development instead'
+
+module.exports = ->
+   if not glob.sync('./config/env/{process.env.NODE_ENV}.eg')[0]:
+      if not process.env.NODE_ENV:
+         console.error('{clor.red.bold(no-node-env)}')
+      else:
+         console.error('{clor.red.bold(no-env-conf)}')
+      process.env.NODE_ENV = .development
