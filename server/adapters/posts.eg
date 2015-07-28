@@ -1,0 +1,5 @@
+require:
+   bookshelf -> Model as Book
+   ../../config/db
+
+class Post < Book

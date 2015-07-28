@@ -9,3 +9,9 @@ require:
 collect-configs = -> ld.merge(ld.assign(all, current), local)
 
 module.exports = collect-configs()
+
+provide: test, dev, prod, sec
+predicate! test = env-str -> env-str == "test"
+predicate! dev  = env-str -> env-str == "development"
+predicate! prod = env-str -> env-str == "production"
+predicate! sec  = env-str -> env-str == "secure"

@@ -9,9 +9,13 @@ require:
    ;;koa-compress as compress
 
 module.exports = db ->
-   print 'Dirname: {__dirname}'
+
+   if config.test? process.env.NODE_ENV: app.use(logger)
+
    indexPath = '{__dirname}/../dist/index.html'
    async index = -> this.body = await read-file(indexPath, {encoding = .utf8})
+
+
 
    chain app:
       @use: logger

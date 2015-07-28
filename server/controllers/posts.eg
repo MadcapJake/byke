@@ -1,0 +1,18 @@
+require:
+   koa-route as route
+   ../../config/db
+
+;; Posts Controller
+
+provide: init
+
+init = chain ->
+   @use: route.get  "/api/posts": list-posts
+   @use: route.post "/api/posts": create-post
+   @use: route.post "/api/posts/:post-id/comments", create-comment
+
+gen list-posts = ->
+   this.body = pass
+   ;; TODO: fill in bookshelf code to get posts
+
+gen create-post = ->

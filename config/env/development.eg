@@ -1,9 +1,12 @@
 module.exports = {} with
    db = {
-      uri = "postgres://localhost:5432"
-      options = {
+      client = .postgres
+      connection = {
+         host = .localhost
          user = ""
          pass = ""
+         database = .byke_dev
+         charset  = .utf8
       }
    }
    app = {
