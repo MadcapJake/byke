@@ -1,14 +1,4 @@
 module.exports = {} with
-   db = {
-      client = .postgres
-      connection = {
-         host = .localhost
-         user = ""
-         pass = ""
-         database = .byke_dev
-         charset  = .utf8
-      }
-   }
    app = {
       title = "BYKE - Development Environment"
    }

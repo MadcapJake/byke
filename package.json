@@ -19,7 +19,7 @@
     "earl-hyperscript": "^0.2.3",
     "earlgrey": "0.0.10",
     "glob": "^5.0.14",
-    "knex": "^0.8.6",
+    "knex": "git+ssh://git@github.com/tgriesser/knex.git",
     "koa": "^0.21.0",
     "koa-better-ratelimit": "^2.1.2",
     "koa-compress": "^1.0.8",

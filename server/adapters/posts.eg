@@ -1,5 +1,8 @@
 require:
-   bookshelf -> Model as Book
+   bookshelf
    ../../config/db
 
-class Post < Book
+class Post < bookshelf.Model:
+
+   initialize = ->
+      @on .savin
