@@ -7,12 +7,9 @@ User = checkit with {
    name  = { .required, .alpha-underscore}
 }
 
-Users = db.Model.extend with {
-
+class Users < db.Model:
    table-name = .users
 
-   initialize = @-> @on .saving: @validate-save
+   initialize = -> @on .saving: @validate-save
 
-   validate-save = @-> User.validate with @attributes
-
-}
+   validate-save = -> User.validate with @attributes
