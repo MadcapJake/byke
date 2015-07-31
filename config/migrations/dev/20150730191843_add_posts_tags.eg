@@ -9,3 +9,4 @@ up = (knex, Promise) ->
       @integer(.tag_id).not-nullable().unsigned()
 
 down = (knex, Promise) ->
+   knex.schema.drop-table(.posts_tags)
