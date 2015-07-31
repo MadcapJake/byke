@@ -1,0 +1,18 @@
+require:
+   checkit
+   ../../config/db
+
+User = checkit with {
+   email = { .required, .email }
+   name  = { .required, .alpha-underscore}
+}
+
+Users = db.Model.extend with {
+
+   table-name = .users
+
+   initialize = @-> @on .saving: @validate-save
+
+   validate-save = @-> User.validate with @attributes
+
+}

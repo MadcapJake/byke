@@ -15,6 +15,7 @@
     "@cycle/core": "^1.0.1",
     "@cycle/dom": "^3.0.2",
     "bookshelf": "^0.8.1",
+    "checkit": "^0.5.1",
     "clor": "^1.0.2",
     "earl-hyperscript": "^0.2.3",
     "earlgrey": "0.0.10",
