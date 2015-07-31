@@ -1,0 +1,15 @@
+require:
+   checkit
+   ../../config/db
+
+class User < db.Model:
+   table-name = .users
+
+   rules = {
+      email = { .required, .email }
+      name  = { .required, .alpha-underscore}
+   }
+
+   initialize = -> @on .saving: @validate-save
+
+   validate-save = -> checkit(@rules).validate with @attributes

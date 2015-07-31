@@ -1,0 +1,18 @@
+require:
+   checkit
+   ../../config/db
+   ./post as Post
+
+class Tag < db.Model:
+   table-name = .tags
+
+   rules = {
+      slug  = { .required, .max-length ++ 150, .alpha-dash }
+      name  = { .required, .max-length ++ 150 }
+   }
+
+   initialize = -> @on .saving: @validate-save
+
+   validate-save = -> checkit(@rules).validate with @attributes
+
+   posts = -> @belongs-to-many: Post

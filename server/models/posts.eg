@@ -1,8 +1,0 @@
-require:
-   bookshelf
-   ../../config/db
-
-class Post < bookshelf.Model:
-
-   initialize = ->
-      @on .savin

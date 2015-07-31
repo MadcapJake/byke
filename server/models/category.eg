@@ -1,0 +1,17 @@
+require:
+   checkit
+   ../../config/db
+   ./post as Post
+
+class Category < db.Model:
+   table-name = .categories
+
+   rules = {
+      name  = { .required, .max-length ++ 150}
+   }
+
+   initialize = -> @on .saving: @validate-save
+
+   validate-save = -> checkit(@rules).validate with @attributes
+
+   posts = -> @belongs-to-many Post: .category_id

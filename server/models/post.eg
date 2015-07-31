@@ -1,0 +1,26 @@
+require:
+   checkit
+   ../../config/db
+   ./category as Category
+   ./user as User
+   ./tag as Tag
+
+class Post < db.Model:
+   table-name = .posts
+   has-timestamps = true
+
+   rules = {
+      user_id      = { .required, .integer }
+      category_id  = { .required, .integer }
+      title        = { .required, .max-length ++ 150 }
+      slug         = { .required, .max-length ++ 150, .alpha-dash }
+      html         = { .required, .max-length ++ 16777215 }
+   }
+
+   initialize = -> @on .saving: @validate-save
+
+   validate-save = -> checkit(@rules).validate with @attributes
+
+   category = -> @belongs-to Category: .category_id
+   author   = -> @belongs-to User:     .user_id
+   tags     = -> @belongs-to-many: Tag
