@@ -10,7 +10,7 @@ up = (knex, Promise) ->
       @string(.title, 150).not-nullable()
       @string(.slug, 150).not-nullable()
       @text(.html).not-nullable()
-      @timestamp()
+      @timestamps()
 
 down = (knex, Promise) ->
    knex.schema.drop-table(.posts)
