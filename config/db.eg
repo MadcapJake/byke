@@ -1,0 +1,6 @@
+require:
+   ../knexfile
+   knex(knexfile)
+   bookshelf(knex)
+
+module.exports = bookshelf
