@@ -1,0 +1,10 @@
+provide: create-table
+
+macro create-table(`{^name, ^body}`) =
+   let it = @env.mark(`@`)
+   let knex = @mark(`knex`)
+   ```
+   [^knex].schema.create-table(^name) with table ->
+      let ^it = table
+      ^body
+   ```

@@ -1,0 +1,12 @@
+require-macros: ../../../macros/knex -> create-table
+
+provide: up, down
+
+up = (knex, Promise) ->
+   create-table .categories:
+      @increments()
+      @string(.name, 150).not-nullable()
+
+
+down = (knex, Promise) ->
+   knex.schema.drop-table(.categories)

@@ -1,0 +1,11 @@
+require-macros: ../../../macros/knex -> create-table
+
+provide: up, down
+
+up = (knex, Promise) ->
+   create-table .posts_tags:
+      @increments()
+      @integer(.post_id).not-nullable().unsigned()
+      @integer(.tag_id).not-nullable().unsigned()
+
+down = (knex, Promise) ->

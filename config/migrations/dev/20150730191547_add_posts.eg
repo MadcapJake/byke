@@ -1,0 +1,16 @@
+require-macros: ../../../macros/knex -> create-table
+
+provide: up, down
+
+up = (knex, Promise) ->
+   create-table .posts:
+      @increments()
+      @integer(.user_id).not-nullable().unsigned()
+      @integer(.category_id).not-nullable().unsigned()
+      @string(.title, 150).not-nullable()
+      @string(.slug, 150).not-nullable()
+      @text(.html).not-nullable()
+      @timestamp()
+
+down = (knex, Promise) ->
+   knex.schema.drop-table(.posts)

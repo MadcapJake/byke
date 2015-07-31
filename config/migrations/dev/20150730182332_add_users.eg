@@ -1,0 +1,12 @@
+require-macros: ../../../macros/knex -> create-table
+
+provide: up, down
+
+up = (knex, Promise) ->
+  create-table .users:
+     @increments()
+     @string(.email, 254).not-nullable().unique()
+     @string(.name,  150).not-nullable()
+
+down = (knex, Promise) ->
+   knex.schema.drop-table(.users)
