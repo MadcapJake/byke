@@ -1,24 +1,30 @@
 require:
    fs -> promisify! read-file
-   koa() as app
    koa-route as route
    koa-logger() as logger
    koa-static as serve
-   ./config
+   koa-mount as mount
    ;;koa-better-ratelimit as limit
    ;;koa-compress as compress
+   ./helpers -> test-env
+   ../server/controllers/posts
+   ;;../server/controllers/users
+   ;;../server/controllers/categories
+   ;;../server/controllers/tags
 
-module.exports = db ->
+module.exports = app ->
 
-   if config.test? process.env.NODE_ENV: app.use(logger)
+   if test-env? process.env.NODE_ENV:
+      app.use(logger)
 
-   indexPath = '{__dirname}/../dist/index.html'
-   async index = -> this.body = await read-file(indexPath, {encoding = .utf8})
-
-
+   indexPath = '{process.cwd()}/dist/index.html'
+   gen index = -> this.body = yield read-file(indexPath, {encoding = .utf8})
 
    chain app:
-      @use: logger
-      @use: serve: '{__dirname}/../dist/js'
-      @use: serve: '{__dirname}/../dist/css'
+      @use: serve: '{process.cwd()}/dist/js'
+      @use: serve: '{process.cwd()}/dist/css'
       @use: route.get("/") with index
+      @use: mount '/api/posts': posts
+      ;;@use: mount '/api/users': users
+      ;;@use: mount '/api/categories': categories
+      ;;@use: mount '/api/tags': tags

@@ -1,27 +1,28 @@
 require:
    ../config/init
    ../config/config
-   ../config/koa
-   knex, bookshelf, clor
+   "../config/koa" as config-koa
+   ../config/db
+   koa() as app
 
-;; Initialize env variable
+;; Initialize environment
 init()
-
-;; Initialize database
-;; TODO: Add knex/bookshelf init code
-db = undefined
-;; Initialize koa application
-app = koa(db) ;; TODO: check if this pattern translates to koa
-;; TODO: look into passport and place it or alt here
-app.listen(config.port)
 
 module.exports = app
 
-;; Logging initialization
-print '--'
-print '{config.app.title} application started'
-print 'Environment:\t\t\t{process.env.NODE_ENV}'
-print 'Port:\t\t\t\t{config.port}'
-print 'Database:\t\t\t{config.db.uri}'
-if process.env.NODE_ENV == .secure: print 'HTTPs:\t\t\t\ton'
-print '--'
+app.init = seed-data ->
+   config-koa(app)
+   app.server = app.listen(config.port)
+
+if not module.parent:
+   print "Initializing app..."
+   app.init()
+
+   ;; Logging initialization
+   print '--'
+   print '{config.app.title} application started'
+   print 'Environment:\t\t\t{process.env.NODE_ENV}'
+   print 'Port:\t\t\t\t{config.port}'
+   print 'Database:\t\t\t{db.knex.client.config["development"].client}'
+   if process.env.NODE_ENV == .secure: print 'HTTPs:\t\t\t\ton'
+   print '--'

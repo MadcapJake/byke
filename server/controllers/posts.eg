@@ -1,18 +1,25 @@
 require:
-   koa-route as route
+   koa-router() as router
    ../../config/db
 
-;; Posts Controller
-
-provide: init
-
-init = chain ->
-   @use: route.get  "/api/posts": list-posts
-   @use: route.post "/api/posts": create-post
-   @use: route.post "/api/posts/:post-id/comments", create-comment
-
-gen list-posts = ->
+gen list-posts = next ->
    this.body = pass
    ;; TODO: fill in bookshelf code to get posts
 
+gen show-post = ->
+   ;; TODO: fill in bookshelf code to get one post
+   pass
+
 gen create-post = ->
+   ;; TODO: fill in bookshelf code to create a post
+   pass
+
+;; Posts Controller
+chain router:
+   @get  "/": list-posts
+   @get  "/:post-id": show-post
+   @post "/new": create-post
+   ;; TODO: Add comment routes
+   ;;@post "/:post-id/comments", create-comment
+
+module.exports = router

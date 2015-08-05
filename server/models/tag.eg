@@ -1,7 +1,11 @@
+
 require:
    checkit
    ../../config/db
-   ./post as Post
+   ./post -> Post
+
+provide:
+   Tag, Tags
 
 class Tag < db.Model:
    table-name = .tags
@@ -16,3 +20,6 @@ class Tag < db.Model:
    validate-save = -> checkit(@rules).validate with @attributes
 
    posts = -> @belongs-to-many: Post
+
+class Tags < db.Collection:
+   model = Tag

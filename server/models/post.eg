@@ -1,9 +1,12 @@
+
 require:
    checkit
    ../../config/db
-   ./category as Category
-   ./user as User
-   ./tag as Tag
+   ./category -> Category
+   ./user -> User
+   ./tag -> Tag
+
+provide: Post, Posts
 
 class Post < db.Model:
    table-name = .posts
@@ -24,3 +27,6 @@ class Post < db.Model:
    category = -> @belongs-to Category: .category_id
    author   = -> @belongs-to User:     .user_id
    tags     = -> @belongs-to-many: Tag
+
+class Posts < db.Collection:
+   model = Post

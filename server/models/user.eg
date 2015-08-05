@@ -1,6 +1,10 @@
+
 require:
    checkit
    ../../config/db
+
+provide:
+   User, Users
 
 class User < db.Model:
    table-name = .users
@@ -10,6 +14,10 @@ class User < db.Model:
       name  = { .required, .alpha-underscore}
    }
 
-   initialize = -> @on .saving: @validate-save
+   initialize = -> this.on .saving: this.validate-save
 
-   validate-save = -> checkit(@rules).validate with @attributes
+   validate-save = -> checkit(this.rules).validate with this.attributes
+}
+
+class Users < db.Collection:
+   model = User

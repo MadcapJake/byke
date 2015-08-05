@@ -1,0 +1,10 @@
+provide:
+   test-env
+   deve-env
+   prod-env
+   secu-env
+
+predicate! test-env = env-str -> env-str == "test"
+predicate! deve-env = env-str -> env-str == "development"
+predicate! prod-env = env-str -> env-str == "production"
+predicate! secu-env = env-str -> env-str == "secure"
