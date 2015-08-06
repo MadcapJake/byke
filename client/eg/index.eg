@@ -1,0 +1,31 @@
+
+require-macros:
+   earl-hyperscript -> [%]
+require:
+   "@cycle/core" -> {run, Rx}
+   "@cycle/dom"  -> make-DOM-driver
+   "@cycle/http" -> make-HTTP-driver
+
+main = responses ->
+   POSTS_URL = "http://localhost:3000/api/posts/"
+   request$ = Rx.Observable.just with POSTS_URL
+   vtree$ = chain responses.HTTP:
+      @filter: res$ -> res$.request === POSTS_URL
+      @merge-all:
+      @map: res -> res.body
+      @start-with: "Loading..."
+      @map: body ->
+         section %
+            h1.post-title % body.title
+            h4.post-author % body.author
+            div.post-body % body.content
+
+   {
+      DOM = vtree$
+      HTTP = request$
+   }
+
+run main: {
+   DOM  = make-DOM-driver: "#app"
+   HTTP = make-HTTP-driver:
+}

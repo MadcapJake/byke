@@ -3,7 +3,7 @@ paths = {} with
       all  = "server/**/*.eg"
       main = "server/main.eg"
    client = {} with
-      eg   = { "client/js/**/*.eg" }
+      eg   = { "client/eg/**/*.eg" }
       css  = { "client/css/**/*.css" }
       html = { "client/*.html" }
    dist   = {} with
@@ -25,16 +25,14 @@ gen clear = ->
    yield this.clear(.dist)
 
 gen client = ->
-   yield this.clear with paths.dist.js
    yield chain this:
       @source: paths.client.eg
       @browse: { transform = { earlify } }
-      @minify: { ext = .js }
+      ;;@minify: { ext = .js }
       @concat: "index.js"
       @target: paths.dist.js
 
 gen css = ->
-   yield this.clear with paths.dist.css
    yield chain this:
       @source: paths.client.css
       @stylus:
@@ -51,7 +49,7 @@ gen server = ->
       script  = paths.server.main
       ext     = ".eg"
       exec    = "earl run"
-      events = { restart = "google-chrome http://localhost:3000/" }
+      events  = { restart = "google-chrome http://localhost:3000/" }
    }
 
 gen watch = ->

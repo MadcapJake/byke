@@ -7,3 +7,6 @@ egcache/
 
 # local configs
 config/env/local.eg
+
+# built files
+dist/

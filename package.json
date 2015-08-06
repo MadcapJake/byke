@@ -4,6 +4,8 @@
   "version": "0.0.0",
   "scripts": {
     "start": "NODE_ENV=development earl run server/main.eg",
+    "start:test": "NODE_ENV=test earl run server/main.eg",
+    "fly": "fly",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jake Russo",
@@ -15,6 +17,7 @@
   "dependencies": {
     "@cycle/core": "^1.0.1",
     "@cycle/dom": "^3.0.2",
+    "@cycle/http": "^1.0.3",
     "bookshelf": "^0.8.1",
     "checkit": "^0.5.1",
     "clor": "^1.0.2",
@@ -38,12 +41,13 @@
   "devDependencies": {
     "earl-mocha": "0.0.2",
     "earlify": "0.0.1",
-    "fly": "^0.3.4",
+    "fly": "^0.4.2",
     "fly-browserify": "^0.1.2",
-    "fly-earl": "^0.3.2",
+    "fly-earl": "^0.3.5",
     "fly-minify": "^0.1.0",
     "fly-nodemon": "^0.1.1",
-    "fly-notify": "^0.3.3",
+    "fly-notify": "^0.3.4",
+    "fly-stylus": "^0.3.2",
     "mocha": "^2.2.5",
     "stylus": "^0.52.0"
   }

@@ -1,3 +1,4 @@
+
 require:
    fs -> promisify! read-file
    koa-route as route
@@ -7,10 +8,7 @@ require:
    ;;koa-better-ratelimit as limit
    ;;koa-compress as compress
    ./helpers -> test-env
-   ../server/controllers/posts
-   ;;../server/controllers/users
-   ;;../server/controllers/categories
-   ;;../server/controllers/tags
+   ../server/controllers/posts -> init as posts-init
 
 module.exports = app ->
 
@@ -20,11 +18,12 @@ module.exports = app ->
    indexPath = '{process.cwd()}/dist/index.html'
    gen index = -> this.body = yield read-file(indexPath, {encoding = .utf8})
 
+   print "Serving static files..."
    chain app:
-      @use: serve: '{process.cwd()}/dist/js'
-      @use: serve: '{process.cwd()}/dist/css'
+      @use: serve: 'dist/js'
+      @use: serve: 'dist/css'
       @use: route.get("/") with index
-      @use: mount '/api/posts': posts
-      ;;@use: mount '/api/users': users
-      ;;@use: mount '/api/categories': categories
-      ;;@use: mount '/api/tags': tags
+
+   ;; Initialize posts controller
+   print "Initializing post controller..."
+   posts-init(app)

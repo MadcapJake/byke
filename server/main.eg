@@ -1,8 +1,9 @@
+
 require:
    ../config/init
    ../config/config
-   "../config/koa" as config-koa
    ../config/db
+   ../config/server
    koa() as app
 
 ;; Initialize environment
@@ -10,9 +11,11 @@ init()
 
 module.exports = app
 
-app.init = seed-data ->
-   config-koa(app)
-   app.server = app.listen(config.port)
+app.init = ->
+   print "Initializing koa..."
+   server(app)
+   print "Listening..."
+   app.listen(config.port)
 
 if not module.parent:
    print "Initializing app..."
