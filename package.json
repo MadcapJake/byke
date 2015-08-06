@@ -1,7 +1,7 @@
 {
   "name": "byke",
   "description": "BYKE - Full-Stack Webapps Using Bookshelf, cYcle.js, Koa, and Earl-grey.",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "start": "NODE_ENV=development earl run server/main.eg",
     "start:test": "NODE_ENV=test earl run server/main.eg",
