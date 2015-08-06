@@ -34,6 +34,8 @@
 
 ## About
 
+[![Join the chat at https://gitter.im/MadcapJake/byke](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/MadcapJake/byke?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 _BYKE_ is a modern [software stack](https://en.wikipedia.org/wiki/Solution_stack) for [single-page apps](https://en.wikipedia.org/wiki/Single-page_application) built with [Bookshelf.js](http://bookshelfjs.org/), [Cycle.js](http://cycle.js.org/), [Koa](http://koajs.com/) and [Earl Grey](https://breuleux.github.io/earl-grey).
 
 _BYKE_ also uses [Fly](https://github.com/flyjs/fly), Earl Grey [macros](https://breuleux.github.io/earl-grey/doc.html#macros), an as-yet-undecided authentication package, and more to come!
