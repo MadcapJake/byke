@@ -9,7 +9,7 @@
 
 <p align="center">
   <a href="http://github.com/madcapjake/byke">
-    <img width=280px  src="">
+    <img width=280px  src="https://raw.githubusercontent.com/MadcapJake/byke/master/assets/byke-logo.png">
   </a>
 </p>
 
