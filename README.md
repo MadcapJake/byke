@@ -24,7 +24,7 @@
   <b><a href="#contributing">Contributing</a></b>
 
   <p align="center">
-    <a href="https://gitter.im/flyjs/fly?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge">
+    <a href="https://gitter.im/madcapjake/byke?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge">
       <img src="https://badges.gitter.im/Join%20Chat.svg">
     </a>
   </p>
