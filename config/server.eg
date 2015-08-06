@@ -15,15 +15,14 @@ module.exports = app ->
    if test-env? process.env.NODE_ENV:
       app.use(logger)
 
-   indexPath = '{process.cwd()}/dist/index.html'
-   gen index = -> this.body = yield read-file(indexPath, {encoding = .utf8})
-
    print "Serving static files..."
    chain app:
       @use: serve: 'dist/js'
       @use: serve: 'dist/css'
-      @use: route.get("/") with index
+      @use: route.get("/") with *->
+         indexPath = '{process.cwd()}/dist/index.html'
+         this.body = yield read-file(indexPath, {encoding = .utf8})
 
    ;; Initialize posts controller
    print "Initializing post controller..."
-   posts-init(app)
+   ;;posts-init(app)
