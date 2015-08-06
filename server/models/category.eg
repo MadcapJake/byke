@@ -19,7 +19,6 @@ class Category < db.Model:
    validate-save = -> checkit(this.rules).validate with this.attributes
 
    posts = -> this.belongs-to-many Post: .category_id
-}
 
 class Categories < db.Collection:
    model = Category
