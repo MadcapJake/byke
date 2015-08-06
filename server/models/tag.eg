@@ -2,12 +2,14 @@
 require:
    checkit
    ../../config/db
-   ./post -> Post
+   ./post
+
+Post = post.Post
 
 provide:
    Tag, Tags
 
-class Tag < db.Model:
+Tag = db.Model.extend with {
    table-name = .tags
 
    rules = {
@@ -15,11 +17,11 @@ class Tag < db.Model:
       name  = { .required, .max-length ++ 150 }
    }
 
-   initialize = -> @on .saving: @validate-save
+   initialize = -> this.on .saving: this.validate-save
 
-   validate-save = -> checkit(@rules).validate with @attributes
+   validate-save = -> checkit(this.rules).validate with this.attributes
 
-   posts = -> @belongs-to-many: Post
+   posts = -> this.belongs-to-many(Post)
+}
 
-class Tags < db.Collection:
-   model = Tag
+Tags = db.Collection.extend with { model = Tag }

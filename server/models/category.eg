@@ -2,12 +2,14 @@
 require:
    checkit
    ../../config/db
-   ./post
+   ./post ;; -> Post
+
+Post = post.Post
 
 provide:
    Category, Categories
 
-class Category < db.Model:
+Category = db.Model.extend with {
    table-name = .categories
 
    rules = {
@@ -18,7 +20,7 @@ class Category < db.Model:
 
    validate-save = -> checkit(this.rules).validate with this.attributes
 
-   posts = -> this.belongs-to-many Post: .category_id
+   posts = -> this.belongs-to-many(Post) with .category_id
+}
 
-class Categories < db.Collection:
-   model = Category
+Categories = db.Collection.extend with { model = Category }

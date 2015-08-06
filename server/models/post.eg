@@ -2,13 +2,18 @@
 require:
    checkit
    ../../config/db
-   ./category -> Category
-   ./user -> User
-   ./tag -> Tag
+   ./category
+   ./user
+   ./tag
 
-provide: Post, Posts
+Category = category.Category
+User = user.User
+Tag = tag.Tag
 
-class Post < db.Model:
+provide:
+   Post, Posts
+
+Post = db.Model.extend with {
    table-name = .posts
    has-timestamps = true
 
@@ -20,13 +25,13 @@ class Post < db.Model:
       html         = { .required, .max-length ++ 16777215 }
    }
 
-   initialize = -> @on .saving: @validate-save
+   initialize = -> this.on .saving: this.validate-save
 
-   validate-save = -> checkit(@rules).validate with @attributes
+   validate-save = -> checkit(this.rules).validate with this.attributes
 
-   category = -> @belongs-to Category: .category_id
-   author   = -> @belongs-to User:     .user_id
-   tags     = -> @belongs-to-many: Tag
+   category = -> this.belongs-to(Category) with .category_id
+   author   = -> this.belongs-to(User) with .user_id
+   tags     = -> this.belongs-to-many(Tag)
+}
 
-class Posts < db.Collection:
-   model = Post
+Posts = db.Collection.extend with { model = Post }

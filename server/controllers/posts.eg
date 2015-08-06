@@ -1,7 +1,8 @@
 
 require:
    koa-route as route
-   ../../config/db
+   ../models/post -> Posts
+
 provide:
    init
 
@@ -11,7 +12,7 @@ init = app ->
       @use: route.get  "/api/posts":         recent-posts
       @use: route.get  "/api/post/:post-id": show-post
       @use: route.post "/api/post/new":      create-post
-      
+
 gen recent-posts = next ->
    posts = yield {
       title = "My first blog post"
@@ -27,9 +28,14 @@ gen recent-posts = next ->
    this.body = posts
    ;; TODO: fill in bookshelf code to get posts
 
-gen show-post = ->
-   ;; TODO: fill in bookshelf code to get one post
-   pass
+gen show-post = post-id ->
+   chain Posts:
+      @forge: { id = post-id }
+      @fetch-one:
+      @then: post ->
+         if not post: this.throw("cannot find post", 404)
+         else: this.body(post)
+      @otherwise: err -> this.throw(err, 500)
 
 gen create-post = ->
    ;; TODO: fill in bookshelf code to create a post

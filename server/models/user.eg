@@ -6,7 +6,7 @@ require:
 provide:
    User, Users
 
-class User < db.Model:
+User = db.Model.extend with {
    table-name = .users
 
    rules = {
@@ -17,6 +17,6 @@ class User < db.Model:
    initialize = -> this.on .saving: this.validate-save
 
    validate-save = -> checkit(this.rules).validate with this.attributes
+}
 
-class Users < db.Collection:
-   model = User
+Users = db.Collection.extend with { model = User }
