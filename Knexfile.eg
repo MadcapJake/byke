@@ -1,11 +1,11 @@
 module.exports = {
    development = {
-      client = 'sqlite3'
+      client = .sqlite3
       connection = {
          filename = './dev.sqlite3'
       }
       migrations = {
-         tableName = "knex_migrations"
+         tableName = "deve_migrations"
          directory = "./config/migrations/dev"
       }
       seeds = {
@@ -19,11 +19,18 @@ module.exports = {
          user = .postgres
          password = .postgres
       }
+      migrations = {
+         tableName = "test_migrations"
+         directory = "./config/migrations/test"
+      }
+      seeds = {
+         directory = "./config/seeds/test"
+      }
    }
    staging = {
-      client = 'postgresql'
+      client = .postgresql
       connection = {
-         database = 'my_db'
+         database = .stag_db
          user     = 'username'
          password = 'password'
       }
@@ -32,13 +39,14 @@ module.exports = {
          max = 10
       }
       migrations = {
-         tableName = 'knex_migrations'
+         tableName = 'stag_migrations'
+         directory = "./config/migrations/stag"
       }
    }
    production = {
-      client = 'postgresql'
+      client = .postgresql
       connection = {
-         database = 'my_db'
+         database = .prod_db
          user     = 'username'
          password = 'password'
       }
@@ -47,7 +55,8 @@ module.exports = {
          max = 10
       }
       migrations = {
-         tableName = 'knex_migrations'
+         tableName = 'prod_migrations'
+         directory = "./config/migrations/prod"
       }
    }
 }
