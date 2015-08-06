@@ -5,6 +5,13 @@ require:
 provide:
    init
 
+;; Posts Controller
+init = app ->
+   chain app:
+      @use: route.get  "/api/posts":         recent-posts
+      @use: route.get  "/api/post/:post-id": show-post
+      @use: route.post "/api/post/new":      create-post
+      
 gen recent-posts = next ->
    posts = yield {
       title = "My first blog post"
@@ -27,10 +34,3 @@ gen show-post = ->
 gen create-post = ->
    ;; TODO: fill in bookshelf code to create a post
    pass
-
-;; Posts Controller
-init = app ->
-   chain app:
-      @use: route.get  "/api/posts":         recent-posts
-      @use: route.get  "/api/post/:post-id": show-post
-      @use: route.post "/api/post/new":      create-post

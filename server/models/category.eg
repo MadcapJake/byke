@@ -2,7 +2,7 @@
 require:
    checkit
    ../../config/db
-   ./post -> Post
+   ./post
 
 provide:
    Category, Categories
