@@ -36,7 +36,7 @@
 
 _BYKE_ is a modern [software stack](https://en.wikipedia.org/wiki/Solution_stack) for [single-page apps](https://en.wikipedia.org/wiki/Single-page_application) built with [Bookshelf.js](http://bookshelfjs.org/), [Cycle.js](http://cycle.js.org/), [Koa](http://koajs.com/) and [Earl Grey](https://breuleux.github.io/earl-grey).
 
-_BYKE_ also uses [Fly](https://github.com/flyjs/fly), Earl Grey [macros](https://breuleux.github.io/earl-grey/doc.html#macros), an as-yet-undecided authentication package, and more to come!
+_BYKE_ also uses [Fly](https://github.com/flyjs/fly), [earl-hyperscript](https://github.com/MadcapJake/earl-hyperscript), Earl Grey [macros](https://breuleux.github.io/earl-grey/doc.html#macros), an as-yet-undecided authentication package, and more to come!
 
 Soon there will be documentation available to guide you through using BYKE.
 
