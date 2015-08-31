@@ -20,12 +20,13 @@ gen one-post = id ->
       with-related = { .category, .author, .tags }
    }
    if not post:
-      this.response.status(404).body: JSON.stringify with {
+      this.response.status(404)
+      this.body = {
          error = true
          data = {=}
       }
    else:
-      this.response.body: JSON.stringify with {
+      this.body = {
          error = false
          data = post.to-JSON()
       }
