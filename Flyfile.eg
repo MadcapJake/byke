@@ -13,9 +13,12 @@ paths = {} with
 
 require: earlify
 
-provide: default, clear, client, css, html, server, watch
+provide: default, build, clear, client, css, html, server, watch
 
 gen default = ->
+   yield this.tasks.build()
+
+gen build = ->
    yield this.tasks.clear()
    yield this.tasks.client()
    yield this.tasks.css()

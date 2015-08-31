@@ -1,42 +1,31 @@
-
 require:
-   koa-route as route
-   ../models/post -> Posts
+   ../models/Post
+   ../collections/Posts
 
-provide:
-   init
+provide: all-posts, one-post
 
-;; Posts Controller
-init = app ->
-   chain app:
-      @use: route.get  "/api/posts":         recent-posts
-      @use: route.get  "/api/post/:post-id": show-post
-      @use: route.post "/api/post/new":      create-post
-
-gen recent-posts = next ->
-   posts = yield {
-      title = "My first blog post"
-      author = "Jake Russo"
-      content =
-         """<p>Pellentesque habitant morbi tristique senectus et netus et
-         malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat
-         vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet
-         quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat
-         eleifend leo.</p><p>Pellentesque habitant morbi tristique senectus et
-         netus et malesuada fames ac turpis egestas.</p>"""
+gen all-posts = ->
+   posts = yield Posts.forge().fetch with
+      { with-related = { .category, .author, .tags } }
+   this.body = yield {
+      error = false
+      data  = posts.to-JSON()
    }
-   this.body = posts
-   ;; TODO: fill in bookshelf code to get posts
 
-gen show-post = post-id ->
-   chain Posts:
-      @forge: { id = post-id }
-      @fetch-one:
-      @then: post ->
-         if not post: this.throw("cannot find post", 404)
-         else: this.body(post)
-      @otherwise: err -> this.throw(err, 500)
+;; TODO: add post method for creating posts
 
-gen create-post = ->
-   ;; TODO: fill in bookshelf code to create a post
-   pass
+gen one-post = id ->
+   post = yield Post.forge({= id}).fetch with {
+      require = true
+      with-related = { .category, .author, .tags }
+   }
+   if not post:
+      this.response.status(404).body: JSON.stringify with {
+         error = true
+         data = {=}
+      }
+   else:
+      this.response.body: JSON.stringify with {
+         error = false
+         data = post.to-JSON()
+      }

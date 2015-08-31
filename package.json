@@ -3,8 +3,8 @@
   "description": "BYKE - Full-Stack Webapps Using Bookshelf, cYcle.js, Koa, and Earl-grey.",
   "version": "0.1.0",
   "scripts": {
-    "start": "NODE_ENV=development earl run server/main.eg",
-    "start:test": "NODE_ENV=test earl run server/main.eg",
+    "start": "NODE_ENV=development fly watch",
+    "start:test": "NODE_ENV=test fly watch",
     "fly": "fly",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -29,6 +29,7 @@
     "koa": "^0.21.0",
     "koa-better-ratelimit": "^2.1.2",
     "koa-compress": "^1.0.8",
+    "koa-json": "^1.1.1",
     "koa-json-body": "^3.1.0",
     "koa-logger": "^1.3.0",
     "koa-mount": "^1.3.0",

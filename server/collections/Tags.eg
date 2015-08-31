@@ -1,0 +1,4 @@
+require:
+   ../../config/db
+   ../models/Tag
+module.exports = db.collection .Tags: { model = Tag }

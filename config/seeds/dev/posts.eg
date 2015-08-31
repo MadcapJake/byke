@@ -1,0 +1,35 @@
+provide: seed
+seed = (knex, Promise) ->
+  Promise.join with
+    ;; Deletes ALL existing entries
+    knex(.posts).del()
+
+    ;; Inserts seed entries
+    knex(.posts).insert with
+      {
+         id = 1
+         user_id = 1
+         category_id = 1
+         title = "My First Blog Post"
+         slug = "my-first-blog-post"
+         html = """<p>Pellentesque habitant morbi tristique senectus et netus et
+         malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat
+         vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet
+         quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat
+         eleifend leo.</p><p>Pellentesque habitant morbi tristique senectus et
+         netus et malesuada fames ac turpis egestas.</p>"""
+      }
+    knex(.posts).insert with
+      {
+         id = 2
+         user_id = 1
+         category_id = 1
+         title = "My Second Blog Post"
+         slug = "my-second-blog-post"
+         html = """<p>Pellentesque habitant morbi tristique senectus et netus
+         et malesuada fames ac turpis egestas.</p><p>Pellentesque habitant
+         morbi tristique senectus et netus et malesuada fames ac turpis
+         egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor
+         sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
+         ultricies mi vitae est. Mauris placerat eleifend leo.</p>"""
+      }

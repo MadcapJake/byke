@@ -8,7 +8,7 @@ require:
    ;;koa-better-ratelimit as limit
    ;;koa-compress as compress
    ./helpers -> test-env
-   ../server/controllers/posts -> init as posts-init
+   ../server/controllers/posts -> {all-posts, one-post}
 
 module.exports = app ->
 
@@ -17,12 +17,10 @@ module.exports = app ->
 
    print "Serving static files..."
    chain app:
-      @use: serve: 'dist/js'
-      @use: serve: 'dist/css'
+      @use: serve with 'dist/js'
+      @use: serve with 'dist/css'
       @use: route.get("/") with *->
-         indexPath = '{process.cwd()}/dist/index.html'
-         this.body = yield read-file(indexPath, {encoding = .utf8})
-
-   ;; Initialize posts controller
-   print "Initializing post controller..."
-   ;;posts-init(app)
+         index-path = '{process.cwd()}/dist/index.html'
+         this.body = yield read-file(index-path, {encoding = .utf8})
+      @use: route.get("/api/posts", all-posts)
+      @use: route.get("/api/posts/:post", one-post)

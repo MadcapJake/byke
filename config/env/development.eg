@@ -1,4 +1,8 @@
-module.exports = {} with
+require: ../../Knexfile
+module.exports = {
+   name = .development
    app = {
       title = "BYKE - Development Environment"
    }
+   db = Knexfile.development
+}

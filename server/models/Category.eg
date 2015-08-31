@@ -1,15 +1,9 @@
-
 require:
-   checkit
    ../../config/db
-   ./post ;; -> Post
+   ./Post
+   checkit
 
-Post = post.Post
-
-provide:
-   Category, Categories
-
-Category = db.Model.extend with {
+module.exports = db.model .Category: {
    table-name = .categories
 
    rules = {
@@ -20,7 +14,5 @@ Category = db.Model.extend with {
 
    validate-save = -> checkit(this.rules).validate with this.attributes
 
-   posts = -> this.belongs-to-many(Post) with .category_id
+   posts = -> this.belongs-to-many(.Post) with .category_id
 }
-
-Categories = db.Collection.extend with { model = Category }

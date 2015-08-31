@@ -1,12 +1,8 @@
-
 require:
-   checkit
    ../../config/db
+   checkit
 
-provide:
-   User, Users
-
-User = db.Model.extend with {
+module.exports = db.model .User: {
    table-name = .users
 
    rules = {
@@ -18,5 +14,3 @@ User = db.Model.extend with {
 
    validate-save = -> checkit(this.rules).validate with this.attributes
 }
-
-Users = db.Collection.extend with { model = User }

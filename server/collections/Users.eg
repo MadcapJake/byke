@@ -1,0 +1,4 @@
+require:
+   ../../config/db
+   ../models/User
+module.exports = db.collection .Users: { model = User }

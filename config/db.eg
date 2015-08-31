@@ -1,6 +1,6 @@
 require:
-   ../Knexfile
-   knex(Knexfile) as raw-db
-   bookshelf(raw-db) as db
+   ./env
+   knex
+   bookshelf
 
-module.exports = db
+module.exports = bookshelf(knex(env.db)).plugin(.registry)

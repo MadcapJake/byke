@@ -1,0 +1,4 @@
+require:
+   ../../config/db
+   ../models/Category
+module.exports = db.collection .Categories: { model = Category }

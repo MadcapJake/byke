@@ -1,0 +1,6 @@
+require:
+   ../../config/db
+   ../models/Post
+Posts = db.collection .Posts: { model = Post }
+Posts.fetch = promisify(Posts.fetch)
+module.exports = Posts

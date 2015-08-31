@@ -1,21 +1,22 @@
 
 require:
-   ../config/init
-   ../config/config
+   "../config/init" as env-init
+   ../config/env
    ../config/db
    ../config/server
    koa() as app
 
-;; Initialize environment
-init()
+provide: app
 
-module.exports = app
+;; Initialize environment
+env-init()
 
 app.init = ->
-   print "Initializing koa..."
+   ;; Initialize koa
    server(app)
-   print "Listening..."
-   app.listen(config.port)
+   ;; Start listening
+   app.listen(env.port or process.env.PORT or 9001)
+
 
 if not module.parent:
    print "Initializing app..."
@@ -23,9 +24,9 @@ if not module.parent:
 
    ;; Logging initialization
    print '--'
-   print '{config.app.title} application started'
+   print '{env.app.title} application started'
    print 'Environment:\t\t\t{process.env.NODE_ENV}'
-   print 'Port:\t\t\t\t{config.port}'
-   print 'Database:\t\t\t{db.knex.client.config["development"].client}'
+   print 'Port:\t\t\t\t{env.port}'
+   print 'Database:\t\t\t{db.knex.client.config.client}'
    if process.env.NODE_ENV == .secure: print 'HTTPs:\t\t\t\ton'
    print '--'

@@ -1,19 +1,11 @@
-
 require:
-   checkit
    ../../config/db
-   ./category
-   ./user
-   ./tag
+   ./Category
+   ./User
+   ./Tag
+   checkit
 
-Category = category.Category
-User = user.User
-Tag = tag.Tag
-
-provide:
-   Post, Posts
-
-Post = db.Model.extend with {
+module.exports = db.model .Post: {
    table-name = .posts
    has-timestamps = true
 
@@ -29,9 +21,7 @@ Post = db.Model.extend with {
 
    validate-save = -> checkit(this.rules).validate with this.attributes
 
-   category = -> this.belongs-to(Category) with .category_id
-   author   = -> this.belongs-to(User) with .user_id
-   tags     = -> this.belongs-to-many(Tag)
+   category = -> this.belongs-to(.Category) with .category_id
+   author   = -> this.belongs-to(.User) with .user_id
+   tags     = -> this.belongs-to-many(.Tag)
 }
-
-Posts = db.Collection.extend with { model = Post }
