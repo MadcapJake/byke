@@ -1,0 +1,7 @@
+require: mithril
+provide: percent as [%]
+MithrilNode = (tags, props, Array! children) ->
+   mithril(tags.join(""), props, children)
+macro{MithrilNode} percent = #data{x, y} ->
+   let {=> MithrilNode} = @deps
+   `[^x % ^y] where ENode = [^MithrilNode]`

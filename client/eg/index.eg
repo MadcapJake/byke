@@ -1,31 +1,35 @@
+require: mithril -> {prop, with-attr, mount, request, trust}
+require-macros: "../../macros/mithril.eg" -> [%]
+globals: document
 
-require-macros:
-   earl-hyperscript -> [%]
-require:
-   "@cycle/core" -> {run, Rx}
-   "@cycle/dom"  -> make-DOM-driver
-   "@cycle/http" -> make-HTTP-driver
+class Post:
+   constructor(data) =
+      @title = prop: data.title
+      @slug  = prop: data.slug
+      @html  = prop: data.html
 
-main = responses ->
-   POSTS_URL = "http://localhost:3000/api/posts/"
-   request$ = Rx.Observable.just with POSTS_URL
-   vtree$ = chain responses.HTTP:
-      @filter: res$ -> res$.request === POSTS_URL
-      @merge-all:
-      @map: res -> res.body
-      @start-with: "Loading..."
-      @map: body ->
-         section %
-            h1.post-title % body.title
-            h4.post-author % body.author
-            div.post-body % body.content
+class PostList:
 
-   {
-      DOM = vtree$
-      HTTP = request$
-   }
+   constructor() =
+      @_posts = request with {method = .GET, url = "/api/posts"}
 
-run main: {
-   DOM  = make-DOM-driver: "#app"
-   HTTP = make-HTTP-driver:
-}
+   (^Symbol.iterator) = *-> this._posts() each post -> yield post
+
+   (^Symbol.contains) = post -> post in @_posts()
+
+   push = post -> @_posts().push(post)
+
+class ViewModel:
+
+   posts = new PostList()
+
+var vm = undefined
+controller = -> vm = new ViewModel()
+
+view = ->
+   vm.posts each post ->
+      section %
+         h1.post-title % post.title
+         div.post-body % trust: post.html
+
+mount document.get-element-by-id(.app): {= controller, = view}

@@ -8,10 +8,7 @@ gen all-posts = ->
    posts = yield Posts.forge().fetch with
       { with-related = { .category, .author, .tags } }
    this.response.type = "application/json"
-   this.body = yield {
-      error = false
-      data  = posts.to-JSON()
-   }
+   this.body = yield posts.to-JSON()
 
 ;; TODO: add post method for creating posts
 
