@@ -7,6 +7,7 @@ provide: all-posts, one-post
 gen all-posts = ->
    posts = yield Posts.forge().fetch with
       { with-related = { .category, .author, .tags } }
+   this.response.type = "application/json"
    this.body = yield {
       error = false
       data  = posts.to-JSON()
@@ -20,7 +21,8 @@ gen one-post = id ->
       with-related = { .category, .author, .tags }
    }
    if not post:
-      this.response.status(404)
+      this.response.status = 404
+      this.response.type = "application/json"
       this.body = yield {
          error = true
          data = {=}
