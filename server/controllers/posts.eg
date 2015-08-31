@@ -21,12 +21,12 @@ gen one-post = id ->
    }
    if not post:
       this.response.status(404)
-      this.body = {
+      this.body = yield {
          error = true
          data = {=}
       }
    else:
-      this.body = {
+      this.body = yield {
          error = false
          data = post.to-JSON()
       }
