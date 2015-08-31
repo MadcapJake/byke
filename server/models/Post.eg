@@ -5,7 +5,7 @@ require:
    ./Tag
    checkit
 
-module.exports = db.model .Post: {
+Post = db.model .Post: {
    table-name = .posts
    has-timestamps = true
 
@@ -25,3 +25,4 @@ module.exports = db.model .Post: {
    author   = -> this.belongs-to(.User) with .user_id
    tags     = -> this.belongs-to-many(.Tag)
 }
+module.exports = Post
