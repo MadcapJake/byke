@@ -8,21 +8,18 @@ require:
 
 main = responses ->
    POSTS_URL = "http://localhost:3000/api/posts/"
-   request$ = Rx.Observable.just with POSTS_URL
-   vtree$ = chain responses.HTTP:
-      @filter: res$ -> res$.request === POSTS_URL
-      @merge-all:
-      @map: res -> res.body
-      @start-with: "Loading..."
-      @map: body ->
-         section %
-            h1.post-title % body.title
-            h4.post-author % body.author
-            div.post-body % body.content
-
    {
-      DOM = vtree$
-      HTTP = request$
+      HTTP = Rx.Observable.just with POSTS_URL
+      DOM = chain responses.HTTP:
+         @filter: res$ -> res$.request.url.index-of(POSTS_URL) === 0
+         @merge-all:
+         @map: res -> res.body
+         @start-with: "Loading..."
+         @map: body ->
+            section %
+               h1.post-title % body.title
+               h4.post-author % body.author
+               div.post-body % body.content
    }
 
 run main: {

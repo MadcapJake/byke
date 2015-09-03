@@ -4,6 +4,7 @@ require:
    koa-route as route
    koa-logger() as logger
    koa-static as serve
+   koa-json as json
    koa-mount as mount
    ;;koa-better-ratelimit as limit
    ;;koa-compress as compress
@@ -22,5 +23,6 @@ module.exports = app ->
       @use: route.get("/") with *->
          index-path = '{process.cwd()}/dist/index.html'
          this.body = yield read-file(index-path, {encoding = .utf8})
+      @use: json()
       @use: route.get("/api/posts", all-posts)
       @use: route.get("/api/posts/:post", one-post)
